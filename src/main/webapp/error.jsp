@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <a href="/">Home</a>
+<a href="/iECA3_war_exploded">Home</a>
     <h1>
         Error: <%= request.getParameter("error")%>
     </h1>
