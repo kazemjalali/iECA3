@@ -31,7 +31,7 @@
 </head>
 <body>
 <a href="/iECA3_war_exploded">Home</a>
-<p id="email">email: ali@gmail.com</p>
+<p id="email"><%=Storage.Database.CurrentUser == null ? "" : Storage.Database.CurrentUser.email%></p>
 <br><br>
 <form action="" method="POST">
     <label>Search:</label>
