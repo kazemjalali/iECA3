@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
             response.sendRedirect("/iECA3_war_exploded/error.jsp?error=User Not Found");
         else{
             Storage.Database.CurrentUser = user;
-            response.sendRedirect("\"/iECA3_war_exploded/home.jsp");
+            response.sendRedirect("/iECA3_war_exploded/home.jsp");
         }
     }
 }
