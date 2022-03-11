@@ -12,6 +12,11 @@
 <%@ page import="Views.SingleMovieView" %>
 <%@ page import="Views.CastView" %>
 <%@ page import="Views.CommentView" %>
+
+<%
+    if(Storage.Database.CurrentUser == null)
+        response.sendRedirect("/iECA3_war_exploded/login.jsp");
+%>
 <html>
 <head>
     <title>movie</title>
@@ -28,7 +33,7 @@
 <body>
 <%String movieId = request.getParameter("movie_id");%>
 <%SingleMovieView result =  Storage.Database.GetMovie(Integer.parseInt(movieId)); %>
-<a href="/">Home</a>
+<a href="/iECA3_war_exploded">Home</a>
 <p id="email"><%=Storage.Database.CurrentUser.email%></p>
 <ul>
     <li id="name">name:<%=result.Name%> </li>
@@ -68,8 +73,8 @@
     <button type="submit">rate</button>
 </form>
 <br>
-<form action="/addWatchList" method="POST">
-    <input type="hidden" id="movieId" name="action" value="<%=movieId%>">
+<form action="/iECA3_war_exploded/AddWatchList" method="POST">
+    <input type="hidden" id="movieId" name="movie_id" value="<%=movieId%>">
     <button type="submit">Add to WatchList</button>
 </form>
 <br />

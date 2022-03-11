@@ -6,16 +6,22 @@ import java.util.ArrayList;
 
 public class MovieListView {
     public MovieListView(Movie movie) {
-        Id = movie.id;
-        Name = movie.name;
-        Director = movie.director;
-        Genres = movie.genres;
-        rating = movie.imdbRate;
+        id = movie.id;
+        name = movie.name;
+        director = movie.director;
+        genres = movie.genres;
+        rating = movie.rating;
+        imdbRate = movie.imdbRate;
+        releaseDate = movie.releaseDate;
+        duration = movie.duration;
     }
 
-    public int Id;
-    public String Name;
-    public String Director;
-    public ArrayList<String> Genres;
+    public int id;
+    public String name;
+    public String director;
+    public String releaseDate;
+    public long duration;
+    public ArrayList<String> genres;
     public double rating;
+    public double imdbRate;
 }

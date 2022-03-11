@@ -4,6 +4,7 @@ import Main.Mapper;
 import Model.*;
 import Views.CastView;
 import Views.CommentView;
+import Views.MovieListView;
 import Views.SingleMovieView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,9 +14,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -159,11 +158,10 @@ public class Storage {
 
         }
 
-        public static void GetUserWatchList(String userEmail) throws Exception {
-            User user = getUserByEmail(userEmail);
+        public static List<MovieListView> GetUserWatchList(User user) throws Exception {
             if(user == null)
-                throw new Exception("UserNotFound");
-            System.out.println("{\"data\":{\"WatchList\": " + Mapper.MapWatchList(user) + "}}");
+                return null;
+            return Mapper.MapWatchList(user);
         }
 
         public static void GetMoviesByGenre(String genre) throws JsonProcessingException {
