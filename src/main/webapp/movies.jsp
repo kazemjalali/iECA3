@@ -12,7 +12,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    if(Storage.Database.CurrentUser == null)
+        response.sendRedirect("/iECA3_war_exploded/login.jsp");
+%>
 <html>
+
+
 <head>
     <title>Movies</title>
     <style>
@@ -23,7 +30,7 @@
     </style>
 </head>
 <body>
-<a href="/">Home</a>
+<a href="/iECA3_war_exploded">Home</a>
 <p id="email">email: ali@gmail.com</p>
 <br><br>
 <form action="" method="POST">

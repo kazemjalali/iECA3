@@ -51,7 +51,7 @@
             <td><%=movieActedList.get(i).name %></td>
             <td><%=movieActedList.get(i).imdbRate %></td>
             <td><%=movieActedList.get(i).rating %></td>
-            <td><a href="http://localhost:7071/iECA3_war_exploded/movie.jsp?moive_id =<%=movieActedList.get(i).id%>">Link</a></td>
+            <td><a href="movie.jsp?movie_id=<%=movieActedList.get(i).id%>">Link</a></td>
         </tr>
         <%} %>
 

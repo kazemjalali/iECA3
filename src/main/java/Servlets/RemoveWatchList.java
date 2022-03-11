@@ -7,10 +7,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(name = "AddWatchList", value = "/AddWatchList")
-public class AddWatchList extends HttpServlet {
+@WebServlet(name = "RemoveWatchList", value = "/RemoveWatchList")
+public class RemoveWatchList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -23,13 +22,15 @@ public class AddWatchList extends HttpServlet {
             return;
         }
 
-        int movie_id = Integer.parseInt(request.getParameter("movie_id"));
         try {
-            Storage.Database.AddWatchList(new WatchList(Storage.Database.CurrentUser.email, movie_id));
-            response.sendRedirect("/iECA3_war_exploded/movie.jsp?movie_id=" + movie_id);
+            int movie_id = Integer.parseInt(request.getParameter("movie_id"));
+            Storage.Database.RemoveFromWatchList(new WatchList(Storage.Database.CurrentUser.email, movie_id));
 
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             response.sendRedirect("/iECA3_war_exploded/error.jsp?error=" + e.getMessage());
+
+
         }
     }
 }

@@ -17,13 +17,13 @@
     <ul>
         <li id="email">email: <%=Storage.Database.CurrentUser == null ? "NOT Logged In" : Storage.Database.CurrentUser.email%></li>
         <li>
-            <a href="/movies.jsp">Movies</a>
+            <a href="/iECA3_war_exploded/movies.jsp">Movies</a>
         </li>
         <li>
-            <a href="/watchlist.jsp">Watch List</a>
+            <a href="/iECA3_war_exploded/watchlist.jsp">Watch List</a>
         </li>
         <li>
-            <a href="/logout.jsp">Log Out</a>
+            <a href="/iECA3_war_exploded/Logout">Log Out</a>
         </li>
     </ul>
 </body>

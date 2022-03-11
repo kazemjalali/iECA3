@@ -1,5 +1,14 @@
 <%@ page import="Storage.Storage" %>
+<%@ page import="Views.MovieListView" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
+<%
+    if(Storage.Database.CurrentUser == null)
+        response.sendRedirect("/iECA3_war_exploded/login.jsp");
+    List<MovieListView> movieList = Storage.Database.CurrentUser == null ? new ArrayList<>()
+            : Storage.Database.GetUserWatchList(Storage.Database.CurrentUser);
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,11 +20,11 @@
     </style>
 </head>
 <body>
-    <a href="/">Home</a>
-    <p id="email">email: <%=Storage.Database.CurrentUser.email%></p>
+<a href="/iECA3_war_exploded">Home</a>
+    <p id="email">email: <%=Storage.Database.CurrentUser == null ? "NOT Logged In" : Storage.Database.CurrentUser.email%></p>
     <ul>
-        <li id="name">name: <%=Storage.Database.CurrentUser.name%></li>
-        <li id="nickname">nickname: @<%=Storage.Database.CurrentUser.nickname%></li>
+        <li id="name">name: <%=Storage.Database.CurrentUser == null ? "NOT Logged In" : Storage.Database.CurrentUser.name%></li>
+        <li id="nickname">nickname: @<%=Storage.Database.CurrentUser == null ? "NOT Logged In" : Storage.Database.CurrentUser.nickname%></li>
     </ul>
     <h2>Watch List</h2>
     <table>
@@ -27,26 +36,29 @@
             <th>imdb Rate</th> 
             <th>rating</th> 
             <th>duration</th> 
-            <th></th>
-            <th></th>
+            <th>page</th>
+            <th>remove</th>
         </tr>
 
+        <%int number=movieList.size();
+            for(int i = 0;i < number; i++) {%>
+
         <tr>
-            <th>War for the Planet of the Apes</th>
-            <th>2017-07-14</th> 
-            <th>Matt Reeves</th> 
-            <th>Drama, Action, Adventure</th> 
-            <th>7.4</th> 
-            <th>8</th> 
-            <th>140</th> 
-            <td><a href="/movies/03">Link</a></td>
-            <td>        
-                <form action="" method="POST" >
-                    <input id="form_movie_id" type="hidden" name="movie_id" value="03">
-                    <button type="submit">Remove</button>
-                </form>
-            </td>
+            <td><%=movieList.get(i).name %></td>
+            <td><%=movieList.get(i).releaseDate %></td>
+            <td><%=movieList.get(i).director %></td>
+            <td><%=movieList.get(i).genres %></td>
+            <td><%=movieList.get(i).imdbRate %></td>
+            <td><%=movieList.get(i).rating %></td>
+            <td><%=movieList.get(i).duration %></td>
+            <td><a href="movie.jsp?movie_id=<%=movieList.get(i).id%>">Link</a></td>
+            <form action="/iECA3_war_exploded/RemoveWatchList" method="POST">
+                <input type="hidden" id="movieId" name="movie_id" value="<%=movieList.get(i).id%>">
+                <button type="submit">Remove</button>
+            </form>
         </tr>
+        <%} %>
+
     </table>
     <h2>Recommendation List</h2>
     <table>
