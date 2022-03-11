@@ -13,7 +13,9 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -268,7 +270,8 @@ public class Storage {
             for (int i = 0; i < castIds.size(); i++){
                 try {
                     Actor actor = GetActorById(Integer.valueOf(arr[i].toString()));
-                    CastView cv = new CastView(actor.id, actor.name);
+                    var year = actor.birthDate.substring(0, 4);
+                    CastView cv = new CastView(actor.id, actor.name, 2022 - Integer.valueOf(year));
                     result.add(cv);
                 }catch (Exception ex){
                 }

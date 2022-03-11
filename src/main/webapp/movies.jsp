@@ -1,7 +1,8 @@
-<%@ page import="static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.List" %>
+
 <%@ page import="Model.Movie" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Storage.Storage" %>
+<%@ page import="Views.GetAllMovieView" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -22,6 +23,22 @@
     </style>
 </head>
 <body>
+<a href="/">Home</a>
+<p id="email">email: ali@gmail.com</p>
+<br><br>
+<form action="" method="POST">
+    <label>Search:</label>
+    <input type="text" name="search" value="">
+    <button type="submit" name="action" value="search">Search</button>
+    <button type="submit" name="action" value="clear">Clear Search</button>
+</form>
+<br><br>
+<form action="" method="POST">
+    <label>Sort By:</label>
+    <button type="submit" name="action" value="sort_by_imdb">imdb Rate</button>
+    <button type="submit" name="action" value="sort_by_date">releaseDate</button>
+</form>
+<br>
 <table id="table">
     <tbody>
     <tr>
@@ -39,7 +56,8 @@
         <th>Links</th>
     </tr>
     <%java.util.List<Movie> movies = Storage.Database.GetAllMovies();%>
-        <%for(Movie movie : movies){%>
+        <%for(Movie mve : movies){%>
+            <%GetAllMovieView movie = new GetAllMovieView(mve);%>
             <tr>
                 <td><%=movie.name%></td>
                 <td><%=movie.summary%></td>
@@ -47,12 +65,12 @@
                 <td><%=movie.director%></td>
                 <td><%=movie.writers%></td>
                 <td><%=movie.genres%></td>
-                <td><%=movie.cast%></td>
+                <td><%=movie.castNames%></td>
                 <td><%=movie.imdbRate%></td>
                 <td><%=movie.rating%></td>
                 <td><%=movie.duration%></td>
                 <td><%=movie.ageLimit%></td>
-                <td></td>
+                <td><a href="movie.jsp?movie_id=<%=mve.id%>" >link</a></td>
             </tr>
           <%  }%>
     </tbody>
