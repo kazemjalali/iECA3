@@ -29,7 +29,7 @@
 <%String movieId = request.getParameter("movie_id");%>
 <%SingleMovieView result =  Storage.Database.GetMovie(Integer.parseInt(movieId)); %>
 <a href="/">Home</a>
-<p id="email">email: ali@gmail.com</p>
+<p id="email"><%=Storage.Database.CurrentUser.email%></p>
 <ul>
     <li id="name">name:<%=result.Name%> </li>
     <li id="summary">summary:<%=result.Summary%></li>
