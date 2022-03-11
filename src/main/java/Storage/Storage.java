@@ -6,6 +6,12 @@ import Views.CastView;
 import Views.CommentView;
 import Views.SingleMovieView;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,29 @@ public class Storage {
         public static List<Vote> Votes = new ArrayList<Vote>();
         public static int UserId = 1;
         public static int CommentId = 1;
+
+
+        public static void SetInformation() throws UnirestException, JsonProcessingException {
+            HttpResponse<JsonNode> movieResponse = Unirest.get("http://138.197.181.131:5000/api/movies")
+                    .asJson();
+            HttpResponse <JsonNode> actorResponse = Unirest.get("http://138.197.181.131:5000/api/actors")
+                    .asJson();
+            HttpResponse <JsonNode> userResponse = Unirest.get("http://138.197.181.131:5000/api/users")
+                    .asJson();
+            HttpResponse <JsonNode> commentResponse = Unirest.get("http://138.197.181.131:5000/api/comments")
+                    .asJson();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            Movies =  objectMapper.readValue(movieResponse.getBody().toString(), new TypeReference<>(){});
+            SetRatingForMovies();
+            Actors =  objectMapper.readValue(actorResponse.getBody().toString(), new TypeReference<>(){});
+            Users =  objectMapper.readValue(userResponse.getBody().toString(), new TypeReference<>(){});
+            AssignIdToUsers();
+            Comments = objectMapper.readValue(commentResponse.getBody().toString(), new TypeReference<>(){});
+            AssignIdToCommnet();
+        }
+
+
         public static void AddActor(Actor actor){
             for (Actor act: Actors) {
                 if(act.id == actor.id){
@@ -322,7 +351,7 @@ public class Storage {
 
         public static void SetRatingForMovies() {
             for(Movie movie : Movies)
-                movie.rating = movie.imdbRate;
+                movie.rating = 0;
         }
     }
 
