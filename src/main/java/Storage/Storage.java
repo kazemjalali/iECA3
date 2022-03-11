@@ -28,10 +28,12 @@ public class Storage {
         public static List<Comment> Comments = new ArrayList<Comment>();
         public static List<Vote> Votes = new ArrayList<Vote>();
         public static int UserId = 1;
+        public static boolean DataAddedd = false;
         public static int CommentId = 1;
 
+        public static User CurrentUser = null;
 
-        public static void SetInformation() throws UnirestException, JsonProcessingException {
+        public static void SetInformations() throws UnirestException, JsonProcessingException {
             HttpResponse<JsonNode> movieResponse = Unirest.get("http://138.197.181.131:5000/api/movies")
                     .asJson();
             HttpResponse <JsonNode> actorResponse = Unirest.get("http://138.197.181.131:5000/api/actors")
@@ -49,6 +51,7 @@ public class Storage {
             AssignIdToUsers();
             Comments = objectMapper.readValue(commentResponse.getBody().toString(), new TypeReference<>(){});
             AssignIdToCommnet();
+            DataAddedd = true;
         }
 
 

@@ -3,7 +3,7 @@
 
 <%
 
-   Storage.Database.SetInformation();
+   Storage.Database.SetInformations();
 %>
 <body>
 <h1>IMDB</h1>
