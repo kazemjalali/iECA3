@@ -213,14 +213,37 @@ public class Storage {
             return true;
         }
 
+        public static Vote GetVoteStatus(Vote voteInput){
+            for(Vote vote : Votes){
+                if(vote.CommentId == voteInput.CommentId && vote.UserEmail == voteInput.UserEmail)
+                    return vote;
+            }
+            return null;
+        }
 
         public static void AddVote(Vote vote){
+            var previousVote = GetVoteStatus(vote);
+            if(previousVote != null){
+                Votes.remove(previousVote);
+                if(vote.Vote == previousVote.Vote)
+                    return;
+            }
             Votes.add(vote);
             for(Comment cm : Comments){
                 if(cm.id == vote.CommentId){
-                    if(vote.Vote == 1)
+                    UpdateCommentVotes(cm);
+                }
+            }
+        }
+
+        private static void UpdateCommentVotes(Comment cm) {
+            cm.like = 0;
+            cm.dislike = 0;
+            for(Vote vote : Votes){
+                if(vote.CommentId == cm.id) {
+                    if (vote.Vote == 1)
                         cm.like += 1;
-                    if(vote.Vote == -1)
+                    else
                         cm.dislike += 1;
                 }
             }

@@ -64,7 +64,7 @@
 <form action="/iECA3_war_exploded/rateMovie"  method="POST">
     <label>Rate(between 1 and 10):</label>
     <input type="number" id="quantity" name="quantity" min="1" max="10" required>
-    <input type="hidden" id="movie_Id" name="action" value="<%=movieId%>">
+    <input type="hidden" id="movie_id" name="movie_id" value="<%=movieId%>">
     <button type="submit">rate</button>
 </form>
 <br>
@@ -85,25 +85,25 @@
             <td><%=cm.nickName%></td>
             <td><%=cm.Text%></td>
             <td>
-                <form action="" method="POST">
+                <form action="/iECA3_war_exploded/voteComment" method="POST">
                     <label for=""><%=cm.like%></label>
                     <input
                             id="form_comment_id"
                             type="hidden"
-                            name="comment_id"
+                            name="form_comment_id"
                             value="<%=cm.Id%>"
                     />
-                    <input type="hidden" id="form_action" name="action" value="like">
-                    <input type="hidden" id="form_movie_id" name="movie_id" value="<%=movieId%>">
+                    <input type="hidden" id="voteValue" name="voteValue" value="1">
+                    <input type="hidden" id="movie_id" name="movie_id" value="<%=movieId%>">
                     <button type="submit">like</button>
                 </form>
             </td>
             <td>
-                <form action="" method="POST">
+                <form action="/iECA3_war_exploded/voteComment" method="POST">
                     <label for=""><%=cm.dislike%></label>
-                    <input  id="form_comment_id" type="hidden" name="comment_id" value="<%=cm.Id%>"/>
-                    <input type="hidden" id="form_action" name="action" value="dislike">
-                    <input type="hidden" id="form_movie_id" name="movie_id" value="<%=movieId%>">
+                    <input  id="form_comment_id" type="hidden" name="form_comment_id" value="<%=cm.Id%>"/>
+                    <input type="hidden" id="voteValue" name="voteValue" value="-1">
+                    <input type="hidden" id="movie_id" name="movie_id" value="<%=movieId%>">
                     <button type="submit">dislike</button>
                 </form>
             </td>
