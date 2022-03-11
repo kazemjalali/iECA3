@@ -7,9 +7,12 @@
 
 <%
 
+    if(Storage.Database.CurrentUser.email == null)
+        response.sendRedirect("/error.jsp?error=Please Login");
     int actorId = Integer.parseInt(request.getParameter("actor_id"));
     Actor actor = Storage.Database.GetActorById(actorId);
     ArrayList<Movie> movieActedList = Storage.Database.GetTotalMovieActedIn(actorId);
+
 %>
 
 
@@ -48,7 +51,7 @@
             <td><%=movieActedList.get(i).name %></td>
             <td><%=movieActedList.get(i).imdbRate %></td>
             <td><%=movieActedList.get(i).rating %></td>
-            <td><a href="http://localhost:7071/iECA3_war_exploded/movies.jsp?moive_id =<%=movieActedList.get(i).id%>">Link</a></td>
+            <td><a href="http://localhost:7071/iECA3_war_exploded/movie.jsp?moive_id =<%=movieActedList.get(i).id%>">Link</a></td>
         </tr>
         <%} %>
 

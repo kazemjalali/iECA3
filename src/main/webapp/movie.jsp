@@ -9,6 +9,7 @@
 <%@ page import="Model.Movie" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Storage.Storage" %>
+<%@ page import="Views.SingleMovieView" %>
 <html>
 <head>
     <title>movie</title>
@@ -24,7 +25,7 @@
 </head>
 <body>
 <%String movieId = request.getParameter("movie_id");%>
-<%var result =  Storage.Database.GetMovie(Integer.parseInt(movieId)); %>
+<%SingleMovieView result =  Storage.Database.GetMovie(Integer.parseInt(movieId)); %>
 
 <ul>
     <li id="name">name:<%=result.Name%> </li>
@@ -52,7 +53,7 @@
 <br>
 <form action="/addWatchList" method="POST">
     <label>Your ID:</label>
-    <input type="text" id = "user_id_wl" name="user_id_wl"  />
+    <input type="text" id = "movie_id" name="movie_id"  />
     <button type="submit">Add to WatchList</button>
 </form>
 <br />
