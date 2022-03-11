@@ -61,7 +61,7 @@
 </table>
 
 <br><br>
-<form action="/rateMovie"  method="POST">
+<form action="/iECA3_war_exploded/rateMovie"  method="POST">
     <label>Rate(between 1 and 10):</label>
     <input type="number" id="quantity" name="quantity" min="1" max="10" required>
     <input type="hidden" id="movie_Id" name="action" value="<%=movieId%>">
