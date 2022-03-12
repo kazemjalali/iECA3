@@ -42,19 +42,19 @@
 <br><br>
 <form action="movies.jsp" method="POST">
     <label>Search by Date:</label>
-    <input type="number" min="1900" max="2022" name="startDate" value="">
-    <input type="number" min="1901" max="2022" name="endDate" value="">
+    <input type="number" min="1900" max="2022" name="startDate" value="" required>
+    <input type="number" min="1901" max="2022" name="endDate" value="" required>
     <button type="submit" name="action" value="search">Search</button>
 </form>
 <br><br>
 <form action="movies.jsp" method="POST">
-    <input type="hidden" name="searchTerm" value="">
+    <input type="hidden" name="sortValue" value="-1">
     <button type="submit" name="action" value="clear">Clear Search</button>
 </form>
 <form action="movies.jsp" method="POST">
     <label>Sort By:</label>
     <input type="hidden" name="sortValue" value="1">
-    <button type="submit" name="sort" value="1">imdb Rate</button>
+    <button type="submit" name="sort" value="1">release date</button>
 </form>
 <form action="movies.jsp" method="POST">
     <input type="hidden" name="sortValue" value="-1">
@@ -78,7 +78,7 @@
         <th>Links</th>
     </tr>
     <%java.util.List<Movie> movies = Storage.Database.GetMoviesByFilter(request.getParameter("searchTerm"),
-            request.getParameter("startDate"), request.getParameter("endDate"), request.getParameter("sortValu"));%>
+            request.getParameter("startDate"), request.getParameter("endDate"), request.getParameter("sortValue"));%>
         <%for(Movie mve : movies){%>
             <%GetAllMovieView movie = new GetAllMovieView(mve);%>
             <tr>
