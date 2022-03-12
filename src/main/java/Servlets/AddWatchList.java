@@ -26,7 +26,7 @@ public class AddWatchList extends HttpServlet {
         int movie_id = Integer.parseInt(request.getParameter("movie_id"));
         try {
             Storage.Database.AddWatchList(new WatchList(Storage.Database.CurrentUser.email, movie_id));
-            response.sendRedirect("/iECA3_war_exploded/movie.jsp?movie_id=" + movie_id);
+            response.sendRedirect("/iECA3_war_exploded/watchlist.jsp");
 
         } catch (Exception e) {
             response.sendRedirect("/iECA3_war_exploded/error.jsp?error=" + e.getMessage());

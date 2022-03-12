@@ -23,7 +23,7 @@ public class User {
     public String nickname;
     public String name;
     public Date birthDate;
-    public List<Movie> watchList;
+    public ArrayList<Movie> watchList;
 
     public boolean canWatch(Movie movie) {
         long difference_In_Time

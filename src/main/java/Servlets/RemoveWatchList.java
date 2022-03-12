@@ -25,7 +25,7 @@ public class RemoveWatchList extends HttpServlet {
         try {
             int movie_id = Integer.parseInt(request.getParameter("movie_id"));
             Storage.Database.RemoveFromWatchList(new WatchList(Storage.Database.CurrentUser.email, movie_id));
-
+            response.sendRedirect("/iECA3_war_exploded/watchlist.jsp");
         }
         catch (Exception e){
             response.sendRedirect("/iECA3_war_exploded/error.jsp?error=" + e.getMessage());

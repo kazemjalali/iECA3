@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     public Movie(int id, String name, String summary, String releaseDate, String director, ArrayList<String> writers,
                  ArrayList<String> genres, ArrayList<Integer> cast, double imdbRate, long duration, int ageLimit){
         this.id = id;
@@ -34,6 +34,7 @@ public class Movie {
     public double rating;
     public long duration;
     public int ageLimit;
+    public Double tempScore;
 
     public ArrayList<Rate> rates;
 
@@ -65,4 +66,9 @@ public class Movie {
         rating = getRating();
     }
 
+
+    @Override
+    public int compareTo(Movie o) {
+        return tempScore.compareTo(o.tempScore);
+    }
 }
