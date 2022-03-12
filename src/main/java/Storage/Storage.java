@@ -380,6 +380,19 @@ public class Storage {
             for(Movie movie : Movies)
                 movie.rating = 0;
         }
+
+        public static List<Movie> GetMoviesByFilter(String searchTerm, String startDate, String endDate, String sortValue){
+            if(searchTerm == null && startDate == null && endDate == null)
+                return Movies;
+            if(searchTerm == null)
+                return GetMovieByYear(Integer.valueOf(startDate), Integer.valueOf(endDate));
+            List<Movie> result = new ArrayList<>();
+            for (Movie mve : Movies){
+                if(mve.genres.contains(searchTerm) || mve.name.contains(searchTerm))
+                    result.add(mve);
+            }
+            return result;
+        }
     }
 
 }

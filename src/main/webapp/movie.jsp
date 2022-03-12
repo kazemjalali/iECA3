@@ -114,7 +114,13 @@
             </td>
         </tr>
     <%}%>
-
 </table>
+<form action="/iECA3_war_exploded/addComment" method="POST">
+    <label>Your Comment:</label>
+    <input type="text" name="commentText" value="">
+    <input type="hidden" id="movie_id" name="movie_id" value="<%=movieId%>">
+
+    <button type="submit">Add Comment</button>
+</form>
 </body>
 </html>

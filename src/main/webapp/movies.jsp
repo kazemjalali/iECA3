@@ -33,17 +33,32 @@
 <a href="/iECA3_war_exploded">Home</a>
 <p id="email"><%=Storage.Database.CurrentUser == null ? "" : Storage.Database.CurrentUser.email%></p>
 <br><br>
-<form action="" method="POST">
+<form action="movies.jsp" method="POST">
     <label>Search:</label>
-    <input type="text" name="search" value="">
+    <input type="text" name="searchTerm" value="" placeholder="Name or Genre">
     <button type="submit" name="action" value="search">Search</button>
-    <button type="submit" name="action" value="clear">Clear Search</button>
+</form>
+
+<br><br>
+<form action="movies.jsp" method="POST">
+    <label>Search by Date:</label>
+    <input type="number" min="1900" max="2022" name="startDate" value="">
+    <input type="number" min="1901" max="2022" name="endDate" value="">
+    <button type="submit" name="action" value="search">Search</button>
 </form>
 <br><br>
-<form action="" method="POST">
+<form action="movies.jsp" method="POST">
+    <input type="hidden" name="searchTerm" value="">
+    <button type="submit" name="action" value="clear">Clear Search</button>
+</form>
+<form action="movies.jsp" method="POST">
     <label>Sort By:</label>
-    <button type="submit" name="action" value="sort_by_imdb">imdb Rate</button>
-    <button type="submit" name="action" value="sort_by_date">releaseDate</button>
+    <input type="hidden" name="sortValue" value="1">
+    <button type="submit" name="sort" value="1">imdb Rate</button>
+</form>
+<form action="movies.jsp" method="POST">
+    <input type="hidden" name="sortValue" value="-1">
+    <button type="submit" name="sort" value="">imdb Rate</button>
 </form>
 <br>
 <table id="table">
@@ -62,7 +77,8 @@
         <th>ageLimit</th>
         <th>Links</th>
     </tr>
-    <%java.util.List<Movie> movies = Storage.Database.GetAllMovies();%>
+    <%java.util.List<Movie> movies = Storage.Database.GetMoviesByFilter(request.getParameter("searchTerm"),
+            request.getParameter("startDate"), request.getParameter("endDate"), request.getParameter("sortValu"));%>
         <%for(Movie mve : movies){%>
             <%GetAllMovieView movie = new GetAllMovieView(mve);%>
             <tr>
