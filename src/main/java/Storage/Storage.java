@@ -15,6 +15,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -158,10 +159,10 @@ public class Storage {
 
         }
 
-        public static List<MovieListView> GetUserWatchList(User user) throws Exception {
-            if(user == null)
-                return null;
-            return Mapper.MapWatchList(user);
+        public static List<MovieListView> GetUserWatchList() throws Exception {
+            if(CurrentUser == null)
+                new ArrayList<>();
+            return Mapper.MapWatchList(CurrentUser);
         }
 
         public static void GetMoviesByGenre(String genre) throws JsonProcessingException {
@@ -379,6 +380,42 @@ public class Storage {
         public static void SetRatingForMovies() {
             for(Movie movie : Movies)
                 movie.rating = 0;
+        }
+
+
+        public static List<Movie> GetRecommendedWatchList()
+        {
+            if(Database.CurrentUser == null)
+                return new ArrayList<>();
+            ArrayList<Movie> watchList = Database.CurrentUser.watchList;
+            ArrayList<Movie> tempMovies = (ArrayList<Movie>) ((ArrayList<Movie>) Database.Movies).clone();
+            for (var movie : tempMovies) {
+                movie.tempScore = movie.imdbRate + movie.rating + 3 * GenerateScore(movie, watchList);
+            }
+
+            Collections.sort(tempMovies, Collections.reverseOrder());
+
+            return tempMovies;
+        }
+
+        private static int GenerateScore(Movie movie, ArrayList<Movie> watchList) {
+
+            int totalSimilar = 0;
+            for (var w_movie : watchList) {
+                totalSimilar += NumberOfSameGenre(movie, w_movie);
+            }
+            return totalSimilar;
+        }
+
+        private static int NumberOfSameGenre(Movie movie, Movie w_movie) {
+            int total = 0;
+            for (var genre : movie.genres) {
+                for (var w_genre : w_movie.genres) {
+                    if(w_genre.equals(genre))
+                        total++;
+                }
+            }
+            return total;
         }
     }
 

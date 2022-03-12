@@ -2,12 +2,14 @@
 <%@ page import="Views.MovieListView" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Model.Movie" %>
 <!DOCTYPE html>
 <%
     if(Storage.Database.CurrentUser == null)
         response.sendRedirect("/iECA3_war_exploded/login.jsp");
-    List<MovieListView> movieList = Storage.Database.CurrentUser == null ? new ArrayList<>()
-            : Storage.Database.GetUserWatchList(Storage.Database.CurrentUser);
+    List<MovieListView> movieList = Storage.Database.GetUserWatchList();
+
+    List<Movie> recommendList = Storage.Database.GetRecommendedWatchList();
 %>
 <html lang="en">
 <head>
@@ -52,10 +54,12 @@
             <td><%=movieList.get(i).rating %></td>
             <td><%=movieList.get(i).duration %></td>
             <td><a href="movie.jsp?movie_id=<%=movieList.get(i).id%>">Link</a></td>
-            <form action="/iECA3_war_exploded/RemoveWatchList" method="POST">
-                <input type="hidden" id="movieId" name="movie_id" value="<%=movieList.get(i).id%>">
-                <button type="submit">Remove</button>
-            </form>
+            <td>
+                <form action="/iECA3_war_exploded/RemoveWatchList" method="POST">
+                    <input type="hidden" id="movieId" name="movie_id" value="<%=movieList.get(i).id%>">
+                    <button type="submit">Remove</button>
+                </form>
+            </td>
         </tr>
         <%} %>
 
@@ -67,6 +71,15 @@
             <th>imdb Rate</th> 
             <th>Link</th>
         </tr>
+
+        <% for(int i = 0;i < 3; i++) {%>
+
+        <tr>
+            <td><%=recommendList.get(i).name %></td>
+            <td><%=recommendList.get(i).imdbRate %></td>
+            <td><a href="movie.jsp?movie_id=<%=recommendList.get(i).id%>">Link</a></td>
+        </tr>
+        <%} %>
 
     </table>
 </body>
